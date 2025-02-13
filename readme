@@ -30,8 +30,8 @@ La API utiliza estas claves para generar una firma HMAC-SHA256 que garantiza la 
 💻 Installation
 ---------------
 1. Clona el repositorio:
-   git clone https://github.com/tuusuario/flow-payment-microservice.git
-   cd flow-payment-microservice
+   git clone https://github.com/ecortescl/node_flowcl-ms.git
+   cd node_flowcl-ms
 
 2. Instala las dependencias:
    npm install
