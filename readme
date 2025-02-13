@@ -1,0 +1,94 @@
+Flow Payment Microservice API
+=============================
+
+🚀 Overview
+-----------
+Este microservicio en Node.js integra la API de Flow para la creación y gestión de órdenes de pago.
+Con él puedes:
+  • Crear una orden de pago y obtener la URL final para redirigir al usuario.
+  • Procesar callbacks asíncronos (confirmación de pago).
+  • Redirigir al usuario a páginas de "pago exitoso" o "pago cancelado".
+  • Regenerar una orden de pago en caso de necesitar reintento.
+  • Realizar testing de forma segura, enviando las credenciales (apiKey y secretKey) vía headers.
+
+🔒 Security
+------------
+Las credenciales se manejan de forma segura a través de los headers:
+  • x-api-key: Clave pública (API Key)
+  • x-secret-key: Clave secreta (Secret Key)
+  
+La API utiliza estas claves para generar una firma HMAC-SHA256 que garantiza la integridad y seguridad en la comunicación con Flow.
+
+📚 Features
+-----------
+• **Create Payment Order:** Genera una orden en Flow y retorna una URL final (combinando el token y la URL base) para redirigir al usuario.
+• **Payment Confirmation:** Endpoint que recibe callbacks (urlConfirmation) de Flow para confirmar el estado del pago.
+• **Success & Cancel Endpoints:** Páginas de redirección para indicar el resultado del pago.
+• **Regenerate Payment Order:** Permite reintentar la creación de una orden de pago.
+• **Swagger UI Integration:** Documentación interactiva y testing de la API en [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+
+💻 Installation
+---------------
+1. Clona el repositorio:
+   git clone https://github.com/tuusuario/flow-payment-microservice.git
+   cd flow-payment-microservice
+
+2. Instala las dependencias:
+   npm install
+
+3. Configura las variables de entorno (opcional):
+   Puedes crear un archivo .env con:
+     FLOW_API_URL=https://www.flow.cl/api
+     API_KEY=tu_api_key
+     SECRET_KEY=tu_secret_key
+     PORT=3000
+
+4. Inicia el servidor:
+   node index.js
+
+El servidor se ejecutará en el puerto 3000 (o el especificado en la variable de entorno).
+
+🛠️ Usage
+---------
+- **Swagger UI:**
+  Abre tu navegador en http://localhost:3000/api-docs y usa la documentación interactiva.
+  Haz clic en "Authorize" para ingresar las credenciales de forma segura (x-api-key y x-secret-key).
+
+- **Endpoints Principales:**
+  • POST /create-payment
+      - Crea una orden de pago.
+      - Request Body (JSON): commerceOrder, subject, currency, amount, email, urlConfirmation, urlReturn, etc.
+      - Response: { paymentLink, flowOrder }
+
+  • POST /payment/confirmation
+      - Callback asíncrono de Flow. Recibe el token del pago (en formato x-www-form-urlencoded).
+      - Response: "OK" (texto plano).
+
+  • GET /payment/success
+      - Redirección para pago exitoso.
+      - Query Param: token
+      - Response: Página HTML con detalles del pago.
+
+  • GET /payment/cancel
+      - Redirección para pago cancelado.
+      - Response: Página HTML indicando la cancelación.
+
+  • POST /payment/regenerate
+      - Regenera la orden de pago (usa la misma lógica que create-payment).
+      - Request Body (JSON): Los mismos parámetros que create-payment.
+      - Response: { paymentLink, flowOrder }
+
+✨ Contributing
+---------------
+¡Las contribuciones son bienvenidas! Si deseas aportar mejoras o corregir errores, abre issues o envía pull requests.
+Por favor, sigue las guías de estilo y documenta tus cambios.
+
+📜 License
+-----------
+Este proyecto está licenciado bajo la licencia MIT.
+
+🙌 Support
+-----------
+Si tienes preguntas o necesitas asistencia, por favor abre un issue en GitHub o contacta al mantenedor.
+
+¡Disfruta usando la Flow Payment Microservice API! 😄
