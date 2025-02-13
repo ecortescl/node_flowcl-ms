@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 const DEFAULT_FLOW_API_URL = process.env.FLOW_API_URL || 'https://www.flow.cl/api';
 const DEFAULT_API_KEY = process.env.API_KEY || 'TU_API_KEY';
 const DEFAULT_SECRET_KEY = process.env.SECRET_KEY || 'TU_SECRET_KEY';
+const DEFAULT_BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 
 // ====================
 // Configuración Swagger
@@ -28,7 +29,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
+        url: DEFAULT_BASE_URL,
       },
     ],
     components: {
