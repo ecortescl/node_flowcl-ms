@@ -11,7 +11,7 @@ Con él puedes:
   • Regenerar una orden de pago en caso de necesitar reintento.
   • Realizar testing de forma segura, enviando las credenciales (apiKey y secretKey) vía headers.
 
-🔒 Security
+🔒 Security (test en swagger)
 ------------
 Las credenciales se manejan de forma segura a través de los headers:
   • x-api-key: Clave pública (API Key)
@@ -19,13 +19,18 @@ Las credenciales se manejan de forma segura a través de los headers:
   
 La API utiliza estas claves para generar una firma HMAC-SHA256 que garantiza la integridad y seguridad en la comunicación con Flow.
 
+Para configurar las variables de entorno debes crear un archivo .env con la siguientes variables
+• API_KEY=CODE
+• SECRET_KEY=CODE
+
+
 📚 Features
 -----------
-• **Create Payment Order:** Genera una orden en Flow y retorna una URL final (combinando el token y la URL base) para redirigir al usuario.
-• **Payment Confirmation:** Endpoint que recibe callbacks (urlConfirmation) de Flow para confirmar el estado del pago.
-• **Success & Cancel Endpoints:** Páginas de redirección para indicar el resultado del pago.
-• **Regenerate Payment Order:** Permite reintentar la creación de una orden de pago.
-• **Swagger UI Integration:** Documentación interactiva y testing de la API en [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+• Create Payment Order: Genera una orden en Flow y retorna una URL final (combinando el token y la URL base) para redirigir al usuario.
+• Payment Confirmation: Endpoint que recibe callbacks (urlConfirmation) de Flow para confirmar el estado del pago.
+• Success & Cancel Endpoints: Páginas de redirección para indicar el resultado del pago.
+• Regenerate Payment Order: Permite reintentar la creación de una orden de pago.
+• Swagger UI Integration: Documentación interactiva y testing de la API en [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
 
 💻 Installation
 ---------------
@@ -50,11 +55,11 @@ El servidor se ejecutará en el puerto 3000 (o el especificado en la variable de
 
 🛠️ Usage
 ---------
-- **Swagger UI:**
+- Swagger UI:
   Abre tu navegador en http://localhost:3000/api-docs y usa la documentación interactiva.
   Haz clic en "Authorize" para ingresar las credenciales de forma segura (x-api-key y x-secret-key).
 
-- **Endpoints Principales:**
+- Endpoints Principales:
   • POST /create-payment
       - Crea una orden de pago.
       - Request Body (JSON): commerceOrder, subject, currency, amount, email, urlConfirmation, urlReturn, etc.
